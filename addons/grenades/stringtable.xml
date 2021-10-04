@@ -609,5 +609,29 @@
             <Spanish>Permitir convertir explosivos a lanzables</Spanish>
             <Polish>Zezwala na konwersje ładunków wybuchowych na rzucane wersje</Polish>
         </Key>
+        <Key ID="STR_ACE_Grenades_flashbangSurrender_DisplayName">
+            <English>Allow Stun Grenade Surrender</English>
+            <German>Erlaube Blendgranate-Aufgeben</German>
+        </Key>
+        <Key ID="STR_ACE_Grenades_flashbangSurrender_Description">
+            <English>AI units will have a chance to surrender when hit by a stun grenade.</English>
+            <German>KI-Einheiten haben eine Chance, wenn sie von einem Blendgranate getroffen werden, aufgeben zu werden.</German>
+        </Key>
+        <Key ID="STR_ACE_Grenades_flashbangSurrenderChance_DisplayName">
+            <English>Stun Grenade Surrender Chance</English>
+            <German>Blendgranate Wahrscheinlichkeit des Aufgebens</German>
+        </Key>
+        <Key ID="STR_ACE_Grenades_flashbangSurrenderChance_Description">
+            <English>The chance that an AI unit will surrender when hit by a stun grenade.</English>
+            <German>Die Wahrscheinlichkeit, dass eine KI-Einheit aufgibt, wenn sie von einer Blendgranate getroffen wird.</German>
+        </Key>
+        <Key ID="STR_ACE_Grenades_flashbangSurrenderTimeout_DisplayName">
+            <English>Stun Grenade Surrender Timeout</English>
+            <German>Blendgranate Aufgeben Zeit</German>
+        </Key>
+        <Key ID="STR_ACE_Grenades_flashbangSurrenderTimeout_Description">
+            <English>The amount of time that an AI unit will surrender after being hit by a stun grenade.</English>
+            <German>Die Zeit, die eine KI-Einheit aufgeben wird, nachdem sie von einer Blendgranate getroffen wurde.</German>
+        </Key>
     </Package>
 </Project>

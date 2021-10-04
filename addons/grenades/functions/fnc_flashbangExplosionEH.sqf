@@ -51,24 +51,36 @@ _affected = _affected - [ACE_player];
 
         TRACE_3("FlashBangEffect Start",_x,((getPosASL _x) vectorDistance _grenadePosASL),_strength);
 
-        [_x, true] call EFUNC(common,disableAI);
+        if (GVAR(flashbangSurrender) && {
+            (GVAR(flashbangSurrenderChance) * _strength * (1 - (_x skill "courage"))) > random 1
+        }) then {
+            [_x, true] call EFUNC(captives,setSurrendered);
+            [{
+                params ["_unit"];
+                if !(_unit getVariable [QEGVAR(captives,isHandcuffed), false]) then {
+                    [_unit, false] call EFUNC(captives,setSurrendered);
+                };
+            }, [_x], GVAR(flashbangSurrenderTimeout) * _strength] call CBA_fnc_waitAndExecute;
+        } else {
+            [_x, true] call EFUNC(common,disableAI);
 
-        _x setSkill (skill _x / 50);
+            _x setSkill (skill _x / 50);
 
-        // Make AI try to look away
-        private _dirToFlash = _x getDir _grenadePosASL;
-        _x setDir (_dirToFlash + linearConversion [0.2, 1, _strength, 40, 135] * selectRandom [-1, 1]);
+            // Make AI try to look away
+            private _dirToFlash = _x getDir _grenadePosASL;
+            _x setDir (_dirToFlash + linearConversion [0.2, 1, _strength, 40, 135] * selectRandom [-1, 1]);
 
-        [{
-            params ["_unit"];
+            [{
+                params ["_unit"];
 
-            //Make sure we don't enable AI for unconscious units
-            if !(_unit getVariable ["ace_isUnconscious", false]) then {
-                [_unit, false] call EFUNC(common,disableAI);
-            };
+                //Make sure we don't enable AI for unconscious units
+                if !(_unit getVariable ["ace_isUnconscious", false]) then {
+                    [_unit, false] call EFUNC(common,disableAI);
+                };
 
-            _unit setSkill (skill _unit * 50);
-        }, [_x], 7 * _strength] call CBA_fnc_waitAndExecute;
+                _unit setSkill (skill _unit * 50);
+            }, [_x], 7 * _strength] call CBA_fnc_waitAndExecute;
+        };
     };
 } count _affected;
 
