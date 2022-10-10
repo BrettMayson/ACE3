@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - synixe_master
   pull_request:
 
 jobs:
