@@ -1,4 +1,4 @@
-use arma_rs::{loadout::Loadout, FromArma, Group, IntoArma, Value};
+use arma_rs::{loadout::Loadout, FromArma, Group};
 
 use clipboard::{ClipboardContext, ClipboardProvider};
 
