@@ -36,19 +36,29 @@ if (GVAR(shiftState)) then {
             default {
                 "ace" callExtension ["clipboard:append", [(["    ", str (GVAR(defaultLoadoutsList) select _index), [",", ""] select (_index == _listLength - 1), endl] joinString "")]];
             };
+        } params ["_msg", "_code"];
+        if (_code == 9) then {
+            ERROR_1("Failed to append to clipboard: %1", _msg);
         };
     };
 
-    "ace" callExtension ["clipboard:complete", []];
+    ("ace" callExtension ["clipboard:complete", []]) params ["_msg", "_code"];
+    if (_code == 9) then {
+        ERROR_1("Failed to complete clipboard: %1", _msg);
+    };
 
     [_display, LLSTRING(exportDefault)] call FUNC(message);
 } else {
     // Export singular loadout
     private _export = str (GVAR(center) call CBA_fnc_getLoadout);
-
-    private _export = str ([GVAR(center)] call FUNC(getLoadout));
-    "ace" callExtension ["clipboard:append", [_export]];
-    "ace" callExtension ["clipboard:complete", []];
+    ("ace" callExtension ["clipboard:append", [_export]]) params ["_msg", "_code"];
+    if (_code == 9) then {
+        ERROR_1("Failed to append to clipboard: %1", _msg);
+    };
+    ("ace" callExtension ["clipboard:complete", []]) params ["_msg", "_code"];
+    if (_code == 9) then {
+        ERROR_1("Failed to complete clipboard: %1", _msg);
+    };
 
     [_display, LLSTRING(exportCurrent)] call FUNC(message);
 };

@@ -9,6 +9,7 @@ pub fn group() -> Group {
         .command("clear", clear)
         .command("append", append)
         .command("complete", complete)
+        .command("loadout", loadout)
 }
 
 #[cfg(not(feature = "clipboard"))]
@@ -44,4 +45,17 @@ pub fn complete() -> Result<(), String> {
         BUFFER = String::new();
     }
     Ok(())
+}
+
+#[cfg(feature = "clipboard")]
+pub fn loadout() -> Option<String> {
+    let mut ctx = ClipboardContext::new().ok()?;
+    let content = ctx.get_contents().ok()?;
+    if !content.starts_with("[[") || !content.ends_with("]]") {
+        return None;
+    }
+    if !content.contains("],[") || !content.contains("\",\"") {
+        return None;
+    }
+    Some(content)
 }

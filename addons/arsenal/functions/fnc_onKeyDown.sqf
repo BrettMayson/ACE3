@@ -94,8 +94,14 @@ if (!isNull _loadoutsDisplay) then {
                         };
                     } params ["_className"];
 
-                    "ace" callExtension ["clipboard:append", [_className]];
-                    "ace" callExtension ["clipboard:complete", []];
+                    ("ace" callExtension ["clipboard:append", [_className]]) params ["_msg", "_code"];
+                    if (_code == 9) then {
+                        ERROR_1("Failed to append to clipboard: %1", _msg);
+                    };
+                    ("ace" callExtension ["clipboard:complete", []]) params ["_msg", "_code"];
+                    if (_code == 9) then {
+                        ERROR_1("Failed to complete clipboard: %1", _msg);
+                    };
 
                     [_display, LLSTRING(exportedClassnameText)] call FUNC(message);
                 } else {

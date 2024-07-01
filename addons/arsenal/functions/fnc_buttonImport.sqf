@@ -16,7 +16,10 @@
 params ["_display"];
 
 // Can be either a singular loadout or an array of loadouts
-private _extendedLoadout = call compile copyFromClipboard;
+("ace" callExtension ["clipboard:loadout", []]) params ["_loadout", "_code"];
+if (_code != 0) exitWith {};
+
+private _extendedLoadout = parseSimpleArray _loadout;
 
 // If error, exit
 if (isNil "_extendedLoadout" || {!(_extendedLoadout isEqualType [])}) exitWith {
