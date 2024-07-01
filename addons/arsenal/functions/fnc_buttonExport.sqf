@@ -36,9 +36,6 @@ if (GVAR(shiftState)) then {
             default {
                 "ace" callExtension ["clipboard:append", [(["    ", str (GVAR(defaultLoadoutsList) select _index), [",", ""] select (_index == _listLength - 1), endl] joinString "")]];
             };
-        } params ["_msg", "_code"];
-        if (_code == 9) then {
-            ERROR_1("Failed to append to clipboard: %1", _msg);
         };
     };
 
